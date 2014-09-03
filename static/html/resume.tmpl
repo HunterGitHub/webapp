@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html ng-app='futureMntr'>
+<head>
+    <title>Future Monitor - slate</title>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- bootstrap basic -->
+    <link href="/css/bootstrap.min.css" id="theme-style" rel="stylesheet" media="screen"/>
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+    <script src="/js/knockout-3.1.0.js"></script>
+
+    <!-- code myself -->
+    <link href="/css/custom.css" id="theme-style" rel="stylesheet" media="screen"/>
+</head>
+
+<body>
+  <div class="container top-100">
+    <div class="row">
+      <button type="button" class="btn btn-success btn-label">P</button>
+      <div class="main-panel">
+        <button type="button" class="btn btn-success btn-profile">PROFILE</button>
+        <div class="main-padding">
+          <div class="row">
+            <div class="col-md-6">
+              <h1>王玉森, Hunter</h1>
+              <h4>Go Dev</h4>
+            </div>
+            <div class="col-md-6">
+              <table class="grid">
+                <tr><td class="th">birth:   </td><td class="gray-color">1990.09</td> </tr>
+                <tr><td class="th">Phone:   </td><td class="gray-color">158 5716 8919</td> </tr>
+                <tr><td class="th">Home:   </td><td class="gray-color">天津</td> </tr>
+                <tr><td class="th">Email Address: </td><td class="gray-color">wys6208@sina.com</td> </tr>
+              </table>
+            </div>
+          </div>
+          <hr>
+          <p class="gray-color">
+            初出茅庐技术人<br>
+            憧憬未来走四方<br>
+            路遥不知归何处<br>
+            但求今生终无悔<br>
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <button type="button" class="btn btn-danger btn-label">E</button>
+      <div class="main-panel">
+        <button type="button" class="btn btn-danger btn-profile">EXPERIENCE</button>
+        <div class="main-padding">
+          <div class="row">
+
+            <div class="col-md-8">
+              <div class="line">
+                <button class="btn-info"><span class="caret"></button>
+                工作经历
+              </div>
+              <div class="para-title row">
+                <span class="col-md-9">杭州市，Alibaba 公司, 系统工程师 PE</span>
+                <span class="col-md-3">2013 - 2014</span>
+              </div>
+              <p class="para-txt">
+                在阿里巴巴工作一年多，有些运维经验，对机器管理和监控有些认识，也了解些电商业务<br>
+                对淘宝主站技术和CRM系统大致了解<br>
+              </p>
+              <hr>
+              <div class="line">
+                <button class="btn-info"><span class="caret"></button>
+                学习经历
+              </div>
+              <div class="para-title row">
+                <span class="col-md-9">天津市,  天津大学, 软件工程，本科</span>
+                <span class="col-md-3">2009 - 2013</span>
+              </div>
+              <p class="para-txt">
+                在天津大学就学四年，专业软件工程, 学习了一些计算机编程相关的基础, 自学了些技术
+              </p>
+
+              <div>
+              </div>
+            </div>
+
+            <div class="col-md-4">
+              <div class="para-title">
+                技术能力
+              </div>
+              <div class="para-txt">
+                <div>shell (sed awk grep find...)</div>
+                <div class="progress">
+                  <div class="progress-bar progress-bar-info" style="width: 90%"><span class="value">90%</span></div>
+                </div>
+                <div>go (gin gorp martini redigo mgo)</div>
+                <div class="progress">
+                  <div class="progress-bar progress-bar-danger" style="width: 80%"><span class="value">80%</span></div>
+                </div>
+                <div>python (django)</div>
+                <div class="progress">
+                  <div class="progress-bar progress-bar-warning" style="width: 50%"><span class="value">50%</span></div>
+                </div>
+                <div>js (angularjs knockoutjs)</div>
+                <div class="progress">
+                  <div class="progress-bar progress-bar-success" style="width: 50%"><span class="value">50%</span></div>
+                </div>
+                <div>db (mysql redis mgo)</div>
+                <div class="progress">
+                  <div class="progress-bar progress-bar-info" style="width: 30%"><span class="value">30%</span></div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <button type="button" class="btn btn-info btn-label">S</button>
+      <div class="main-panel">
+        <button type="button" class="btn btn-info btn-profile">Self</button>
+        <div class="main-padding">
+          <div class="line">
+            <button class="btn-success"><span class="caret"></button> show
+          </div>
+          <div class="para-txt">
+            自学过各层技术，底层，系统，应用，web ...<br>
+            在工作中未锻炼出很多技术功力，只是对行业有了一些整体的认识<br>
+            希望创造出一些自己的东西<br>
+          </div>
+          <hr>
+          <div class="line">
+            <button class="btn-success"><span class="caret"></button> 两个网站
+          </div>
+          <div class="para-title" href="#here">
+            <a href="/mntr">114.215.137.156/mntr</a><br>
+            <a href="/re#here">本页</a><br>
+          </div>
+          <div class="para-txt">
+            用knockoutjs ＋go ＋mongo搭建，时间不多，一个雏形, 用来实践<br>
+            对go很有兴趣<br>
+            会继续尝试, 希望找到需求，不知贵老大意下如何<br>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <button type="button" class="btn btn-primary btn-label">C</button>
+      <div class="main-panel">
+        <button type="button" class="btn btn-primary btn-profile">Comment</button>
+        <div class="main-padding">
+          <div class="line">
+            <button class="btn-danger"><span class="caret"></button> Type your idea
+          </div>
+
+          <div data-bind="foreach: showCmt()">
+            <div class="para-txt line padding-30" data-bind="text: cmt"></div>
+          </div>
+
+          <div class="form-group">
+            <label class="control-label" for="focusedInput"><h4>评论</h4></label>
+            <input class="form-control" id="focusedInput" type="text" placeholder="说些吧" data-bind="value: cmtValue">
+            <button class="btn btn-default" data-bind="click: submitCmt">提交</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="gray-color main-panel">Hunter 2014 @ Copy Rights Reserved</div>
+    </div>
+
+  </div>
+
+<input data-bind="value: saved_value, valueUpdate: 'afterkeydown'"/>
+<div data-bind="text: saved_value"></div>
+  
+</body>
+
+<script>
+var viewModel = function() {
+    var self = this;
+    self.saved_value = ko.observable("1");
+    self.cmtValue = ko.observable("");
+    self.submitCmt = function() {
+        $.ajax({
+            url: '/resumeCmt', method: 'post',
+            contentType: 'application/json', data: JSON.stringify({cmt: self.cmtValue().toString()}),
+            success: function(data) {
+                self.showCmt.push(data)
+                console.log(typeof data, data)
+            },
+            error: function(data) {
+                console.log(data)
+            },
+        })
+    };
+    self.showCmt = ko.observableArray([ {cmt:'dddd'}, ])
+    $.ajax({url:'/showCmt', method:'get', 
+        success: function(data) {
+            if (data == null) { data = [] }
+            self.showCmt(data)
+        },
+        error: function(data) {
+            console.log('--- ', data)
+        },
+    })
+};
+ko.applyBindings(viewModel);
+</script>
+
+</html>

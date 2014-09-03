@@ -1,0 +1,102 @@
+<!-- content operation panel -->
+<div class="control-btn">
+	<hr>
+  <button class="btn btn-primary toggleAll-btn" id="chooseAll">全选</button>
+  <button class="btn btn-primary toggleAll-btn" id="addBtn" data-toggle="modal">增加</button>
+  <button class="btn btn-primary toggleAll-btn" id="delBtn" data-toggle="modal">删除</button>
+  <button class="btn btn-primary toggleAll-btn" id="fresh">刷新</button>
+  <hr>
+</div>
+
+<div class="table-responsive">
+  <table id="waibaodata" class="table table-striped table-hover">
+    <tbody>
+    	<tr>
+    	  <th></th>
+    	  <th>公司名称</th>
+    	  <th>联系人员</th>
+    	  <th>联系电话</th>
+    	  <th>添加时间</th>
+    	  <th>操作人</th>
+		  <th>info</th>
+		  <th>domain</th>
+    	  <th>操作</th>
+    	</tr>
+    	
+    	<!-- real data from server -->
+		{{range .company}}
+    	<tr>
+    	  <td> <input type="checkbox" class="tr-select" dataid="{{.Id}}"> </td>
+    	  <td>{{.Name}}</td>
+    	  <td>{{.Person}}</td>
+    	  <td>{{.Phone}}</td>
+    	  <td>{{.Time}}</td>
+    	  <td>{{.Operator}}</td>
+    	  <td>{{.Info}}</td>
+    	  <td>{{.Usedomain}}</td>
+    	  <td>
+    	  	<div class="btn-group btn-group-xs">
+    	  	  <button type="button" class="btn btn-primary">详情</button>
+    	  	  <button type="button" class="btn btn-primary modify" dataid="{{.Id}}">修改</button>
+    	  	</div>
+    	  </td>
+    	</tr>
+		{{end}}
+
+    </tbody>
+  </table>
+
+</div>
+
+<div class="asyncPart"></div>
+
+<script>
+$('.modify').on('click', function() {
+	var id = $(this).attr('dataid')
+	$.ajax({ url:'/modifyPage/' + id, 
+		success: function(data) { 
+			$('.asyncPart').html(data); 
+			$('#myModalLabel').html('修改外包公司'); 
+			$('#addOrMotify').html('修改')
+			$('#detailModal').modal('show');
+		}
+	})
+})
+$('#addBtn').on('click', function() {
+	$.ajax({ url:'/addPage', 
+		success: function(data) { 
+			$('.asyncPart').html(data); 
+			$('#myModalLabel').html('增加外包公司'); 
+			$('#addOrMotify').html('增加')
+			$('#detailModal').modal('show');
+		}
+	})
+})
+$('#delBtn').on('click', function() {
+	$.ajax({ url:'/delPage', 
+		success: function(data) { 
+			$('.asyncPart').html(data); 
+			$('#delModal').modal('show');
+		}
+	})
+})
+$('#chooseAll').on('click', function(){
+    allchecked = true;
+    $('.tr-select').each(function(){ 
+        if (this.checked == false){
+            allchecked = false; return
+        }
+    })
+    allchecked == true ? $('.tr-select').each(function(){
+        this.checked = false
+    }) : $('.tr-select').each(function(){
+        this.checked = true
+    })
+})
+</script>
+
+
+
+
+
+

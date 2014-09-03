@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html ng-app='futureMntr'>
+<head>
+	<title>Future Monitor - slate</title>
+	<meta charset="utf8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<!-- bootstrap basic -->
+	<link href="/css/bootstrap.min.css" id="theme-style" rel="stylesheet" media="screen"/>
+	<script src="/js/jquery.min.js"></script>
+	<script src="/js/bootstrap.min.js"></script>
+
+	<!-- tree list -->
+	<script src="/js/jstree.min.js"></script>
+
+	<!-- angular basic -->
+	<script src="/js/angular.min.js"></script>
+	<script src="/js/angular-route.min.js"></script>
+
+	<!-- code myself -->
+	<link href="/css/custom.css" id="theme-style" rel="stylesheet" media="screen"/>
+</head>
+
+<body>
+  <!-- left bar -->
+  <div class="col-md-2">
+	<div>
+	  <h1>nagios</h1>
+	</div>
+
+	<div>
+
+ 	  <div class="panel-group" ng-controller="listOps">
+ 	    <div class="panel panel-default">
+ 	      <div class="panel-heading">
+ 	        <h4 class="panel-title">
+ 	          <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">管理域</a>
+ 	        </h4>
+ 	      </div>
+		  <div id="collapseOne" class="panel-collapse collapse in">
+		    <ul class="list-group">
+		  	  <li class="list-group-item" ng-click="choose('detail')">detail(详情)</li>
+		  	  <li class="list-group-item" ng-click="choose('buy')">buy(下单)</li>
+		  	  <li class="list-group-item" ng-click="choose('user')">user(会员)</li>
+		  	  <li class="list-group-item" ng-click="choose('real')">本机(会员)</li>
+		    </ul>
+		  </div>
+ 	    </div>
+ 	  </div>
+
+	</div>
+  </div>
+
+  <!-- right panel -->
+  <div class="col-md-10 top-20">
+	<ol class="breadcrumb">
+	  <li><a href="#">All</a></li>
+	  <li><a href="#">监控</a></li>
+	  <li class="active">机器</li>
+	</ol>
+
+	<div class="panel panel-default">
+   	  <button type="button" class="btn btn-default">机器列表</button>
+   	  <button type="button" class="btn btn-default">监控配置</button>
+	</div>
+	
+<!--	<button type="button" id="too" class="btn btn-default" data-toggle="tooltip" data-placement="left" title="Tooltip on left">Tooltip on left</button>
+		<button type="button" class="btn btn-lg btn-danger popover-dismiss" data-toggle="popover" title="Dismissible popover" data-content="And here's some amazing content. It's very engaging. Right?">Dismissible popover</button>
+-->
+
+	<div ng-controller="hostsCtrl">
+	  <table class="table table-striped table-hover">
+		<tr>
+ 	      <th>机器名 </th>
+   	      <th>状态 </th>
+   	      <th>监控项</th>
+		</tr>
+
+		<tr ng-repeat="hi in hostInfos">
+		  <td>{{ hi.Host }} </td>
+		  <td>
+			<table>
+			  <tr>
+				<td ng-click="">{{ hi.Info }}</td>
+			  </tr>
+			</table>
+		  </td>
+		  <td>system </td>
+		</tr>
+	  </table>
+	
+	  <input ng-model="abc">
+	  <div>{{ abc }}</div>
+	</div>
+  </div>
+
+</body>
+
+<script>
+angular.module('futureMntr', ['ngRoute'])
+.factory('MsgPipe', function() {
+	return {
+		showKey: "detail"
+	}
+})
+.factory('HostsList', function() {
+	var hostsAll = {
+		detail: ['a.cm3', 'b.cm3', 'c.et2'],
+		buy:	['hha.cm4', 'hhee.cm4', 'sss.cm4'],
+		user:	['u.et2', 'log.et2', 'dd.et2'],
+		real:	['AY140624222252926cc5Z'],
+	}	
+	return {
+		get: function(k) {
+			return hostsAll[k]
+		},
+		set: function(k, v) {
+			hostsAll[k] = v
+		},
+	}
+})
+.factory('HostInfos', function($rootScope) {
+	$rootScope.hostInfos = [{Host: 'a.cm3', Info: 'load ok'}]
+	return { }
+})
+.controller('hostsCtrl', function($scope, $http, HostsList, HostInfos, MsgPipe) {
+})
+.controller('listOps', function($scope, HostsList, HostInfos, MsgPipe, $rootScope) {
+	$scope.choose = function(groupname) {
+		MsgPipe.showKey = groupname
+		$rootScope.hostInfos = [{Host: 'b.cm3', Info: 'load notok'}]
+	}
+})
+
+$('.collapse').collapse()
+
+</script>
+
+</html>

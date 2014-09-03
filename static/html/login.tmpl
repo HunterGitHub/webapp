@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html ng-app='login'>
+<head>
+	<title>CRM 问题反馈 - slate</title>
+	<meta charset="utf8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link href="/css/bootstrap.min.css" id="theme-style" rel="stylesheet" media="screen"/>
+	<link href="/css/custom.css" id="theme-style" rel="stylesheet" media="screen"/>
+	<script src="/js/jquery.min.js"></script>
+	<script src="/js/bootstrap.min.js"></script>
+	<script src="/js/angular.min.js"></script>
+	<script src="/js/angular-route.min.js"></script>
+</head>
+
+<body>
+
+<div class="center" ng-controller="mainCtrl">
+  <h1>请登录！！</h1>
+  <form>
+    <div class="input-group input-group-lg margin-20">
+      <span class="input-group-addon">@</span>
+      <input type="text" class="form-control" placeholder="Username" ng-model="user.Username">
+    </div>
+    
+    <div class="input-group input-group-lg margin-20">
+      <span class="input-group-addon">@</span>
+      <input type="text" class="form-control" placeholder="Password" ng-model="user.Password">
+    </div>
+
+    <div class="input-group input-group-lg margin-20">
+	  <button type="submit" class="btn btn-default" ng-click="submit()">Submit</button>
+    </div>
+  </form>
+</div>
+
+<script>
+angular.module('login', ['ngRoute'])
+.config(['$routeProvider', function($routeProvider) {
+}])
+.controller('mainCtrl', function($scope, $http) {
+	$scope.user = {
+		Username:"",
+		Password:"",
+	}
+	$scope.submit = function() {
+		$http.post('/login', $scope.user).success(function(data) {
+			console.log(data)
+		}).error(function() {
+			console.log('/login error')
+		})
+	}
+})
+
+</script>
+	
+</body>
+
+</html>

@@ -1,0 +1,87 @@
+/* define for yourself
+ */
+
+body {
+	background-color:black;
+}
+
+a {
+	color:white;
+}
+
+a:hover {
+	color:white;
+}
+
+.gray-color {
+	color:rgb(135, 135, 135);
+}
+
+.top-100{
+	margin-top:100px;
+}
+
+.padding-30 {
+	padding: 15px 30px;
+}
+
+.left-L1 {
+	margin-left:-60px;
+}
+
+.main-panel {
+	background-color:rgb(40, 40, 40);
+	margin-left:65px;
+}
+
+.main-panel .main-padding {
+	padding: 30px 70px 30px 70px;
+}
+
+.grid {
+	font-size: 18px;
+}
+
+.grid .th { 
+	width: 50%;
+	font-weight:500;
+}
+
+.btn-label {
+	width:60px;
+	height:60px;
+	font-size:24px;
+	float:left;
+}
+
+.btn-profile{
+	height:60px;
+	font-size:24px;
+}
+
+.line {
+	width:100%;
+	background-color: rgb(55,55,55);
+	margin:10px 0 30px 0;
+}
+
+.para-title {
+	font-weight: 500;
+	font-size: 18px;
+	margin:10px 0 20px 0;
+}
+	
+.para-txt {
+	color:rgb(135, 135, 135);
+	font-weight: 400;
+}
+
+.value {
+	float:right;
+}
+
+.footer {
+	width:100%;
+	text-align:middle;
+}
+/*----------------------------*/

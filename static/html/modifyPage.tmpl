@@ -1,0 +1,58 @@
+<!-- async dialog pop out when press "add" button, disappear normally -->
+<div class="modal fade" id="detailModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="myModalLabel"></h4>
+      </div>
+      <div class="modal-body">
+        <form id="opsDataForm">
+          <label for="coName">公司名称( * )：</label>
+          <input type="text" id="cName" class="form-control" size="25" value="{{.company.Name}}">
+          <br>
+          <label for="contactpeople">联系人员：</label>
+          <input type="text" id="cPerson" class="form-control" size="25" value="{{.company.Person}}">
+          <br>
+          <label for="tel">联系电话：</label>
+          <input type="tel" id="cPhone" class="form-control" size="25" value="{{.company.Phone}}">
+          <br>
+          <label for="appGroup">后台权限域名：</label>
+          <textarea rows="3" id="cUsedomain" class="form-control" placeholder="多个应用分组以英文的;分割，>切记!">{{.company.Usedomain}}</textarea>
+          <br>
+          <label for="remark">备注信息：</label>
+          <input type="text" id="cInfo" class="form-control" size="25" value="{{.company.Info}}">
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+        <button type="button" class="btn btn-primary" data-dismiss="modal" id="addOrModify">js设置</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+var Id  = "{{.company.Id}}"
+var ops = "/add"
+if (Id != "") { ops = "/modify" }
+
+$('#addOrModify').on('click', function() {
+	var Name = $('#cName').val()
+	var Person = $('#cPerson').val()
+	var Phone = $('#cPhone').val()
+	var Usedomain = $('#cUsedomain').val()
+	var Info = $('#cInfo').val()
+	console.log(Name, Person)
+	$.ajax({ url:ops, method:'post', 
+		data: {Id:Id, Name:Name, Person:Person, Phone:Phone, Usedomain:Usedomain, Info:Info},
+		success: function(data) {
+			console.log('change success ' + data)
+			lC()
+		},
+	})
+})
+</script>
+
+
+

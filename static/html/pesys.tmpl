@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>PE工作台 - slate</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link href="/css/bootstrap.min.css" id="theme-style" rel="stylesheet" media="screen"/>
+	<script src="/js/jquery.min.js"></script>
+	<script src="/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+
+<header>
+<!-- the very top line nav bar -->
+<nav class="navbar navbar-default" role="navigation">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="#">PE工作台</a>
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse">
+      <!-- left side, about work user -->
+      <ul class="nav navbar-nav">
+        <li class="active"><a href="#">稳定性</a></li>
+        <li><a href="#">白名单管理</a></li>
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">工具集<b class="caret"></b></a>
+          <ul class="dropdown-menu">
+            <li><a href="#">Action</a></li>
+            <li><a href="#">Another action</a></li>
+            <li><a href="#">Something else here</a></li>
+            <li class="divider"></li>
+            <li><a href="#">Separated link</a></li>
+            <li class="divider"></li>
+            <li><a href="#">One more separated link</a></li>
+          </ul>
+        </li>
+      </ul>
+
+      <!-- do host search -->
+      <form class="navbar-form navbar-left" role="search">
+      	<div class="dropdown" style="float:left; margin-right:5px">
+      	  <button type="submit" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+      		分组
+      	    <span class="caret"></span>
+      	  </button>
+      	  <ul class="dropdown-menu">
+            <li><a href="#">应用</a></li>
+            <li class="divider"></li>
+            <li><a href="#">机器</a></li>
+          </ul>
+      	</div>
+      	      	
+        <div class="form-group">
+          <input type="text" class="form-control" placeholder="Search">
+        </div>
+        <button type="submit" class="btn btn-default">Submit</button>
+      </form>
+
+      <!-- right side, about user info -->
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="#">Link</a></li>
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">用户是 <b class="caret"></b></a>
+          <ul class="dropdown-menu">
+            <li><a href="#"></a></li>
+            <li class="divider"></li>
+            <li><a href="#">Separated link</a></li>
+          </ul>
+        </li>
+      </ul>
+
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
+</header>
+
+<div class="container">
+  <!-- main function navbar -->
+  <ul class="nav nav-pills nav-justified">
+  	<li><a href="#">应用白名单</a></li>
+ 	  <li><a href="#">外包公司ip</a></li>
+  	<li><a href="#">外包公司</a></li>
+  </ul>
+
+  <div id="data-content">
+  </div>
+</div>
+
+<script type="text/javascript">
+var loadCompany = function() {
+	$.ajax({ url:'/companyPage', 
+		success: function(data) { 
+			$('.data-content').html('')
+			$('.data-content').append(data)
+		},
+	})
+}
+var lC = function() {
+	$('#data-content').load('/companyPage', function() {
+		$('#data-content').fadeIn('slow')
+	})
+}
+lC()
+</script>
+
+</body>
+
+</html>

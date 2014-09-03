@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Future Monitor - slate</title>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- bootstrap basic -->
+    <link href="/css/bootstrap.min.css" id="theme-style" rel="stylesheet" media="screen"/>
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+    <script src="/js/knockout-3.1.0.js"></script>
+    <script src="/js/Chart.js"></script>
+
+    <!-- code myself -->
+    <link href="/css/custom.css" id="theme-style" rel="stylesheet" media="screen"/>
+</head>
+
+<body>
+  <!-- left bar -->
+  <div class="col-md-2">
+    <div>
+      <h1>nagios</h1>
+      <div class="btn-group">
+        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+          监控维度
+          <span class="caret"></span>
+        </button>
+        <ul class="dropdown-menu">
+          <li><a href="#" data-bind="click: chgLeftBar.bind($data, 'leftBarHost')">应用维度</a></li>
+          <li><a href="#" data-bind="click: chgLeftBar.bind($data, 'leftBarNet')">网络维度</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div data-bind="template: { name: displayLeft }"></div>
+
+  </div>
+
+  <div class="col-md-10 top-20">
+    <ol class="breadcrumb">
+      <li><a href="#">监控</a></li>
+      <li class="active" data-bind="text: mntrPath"></li>
+    </ol>
+
+    <div data-bind="template: { name: displayMode }"></div>
+
+  </div>
+
+
+</body>
+
+<script type="text/html" id="leftBarHost">
+<div>
+  <div class="panel-group" ng-controller="listOps">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h4 class="panel-title">
+          <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">管理域</a>
+        </h4>
+      </div>
+      <div id="collapseOne" class="panel-collapse collapse in">
+        <ul class="list-group">
+          <li class="list-group-item" data-bind='click: getInfo.bind($data, "local")'>下单(交易)</li>
+          <li class="list-group-item" data-bind='click: getHostInfo.bind($data, "local")'>本机(监控平台)(多次点击刷新)</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+</script>
+
+<script type="text/html" id="leftBarNet">
+<div>
+  <div class="panel-group" ng-controller="listOps">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h4 class="panel-title">
+          <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">网络分布</a>
+        </h4>
+      </div>
+      <div id="collapseOne" class="panel-collapse collapse in">
+        <ul class="list-group">
+          <li class="list-group-item" data-bind=''>172.16.0.0./12</li>
+          <li class="list-group-item" data-bind=''>192.168.0.0/16</li>
+          <li class="list-group-item" data-bind=''>10.0.0.0/8</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+</script>
+
+<script type="text/html" id="mntrList">
+<table class="table table-striped table-hover" >
+  <tr>
+    <th>机器名 </th>
+    <th>状态 (点击下列出图表)</th>
+    <th>监控项(点击下列出配置)</th>
+  </tr>
+  <tbody data-bind="foreach: showList">
+  <tr>
+    <td data-bind="text: host"></td>
+    <td data-bind="text: info, click: $root.showChart.bind($data)"></td>
+    <td data-bind="text: option, click: $root.getOption.bind($data, 'fdf')"></td>
+  </tr>
+  </tbody>
+</table>
+</script>
+
+<script type="text/html" id="optionList">
+<table class="table table-striped table-hover" >
+  <tr>
+    <th>采集项 </th>
+    <th>critical </th>
+    <th>waring</th>
+  </tr>
+  <tbody data-bind="foreach: optionList">
+  <tr>
+    <td data-bind="text: option"></td>
+    <td data-bind="text: warn"></td>
+    <td data-bind="text: crti"></td>
+  </tr>
+  </tbody>
+</table>
+</script>
+
+<script type="text/html" id="chartList">
+<canvas id="myChart"></canvas>
+</script>
+
+<script>
+var ViewModel = function() {
+    var self = this;
+    self.hostInfoList = {
+        local: [ {host:'114.215.137.156', info:'load 4', option:'system'}, ],
+    };
+    self.hostList = {
+        local: ['114.215.137.156', 'fdfdfd'],
+    };
+    
+    self.showList   = ko.observableArray([]);
+    self.mntrPath   = ko.observable('机器列表');
+    self.optionList = ko.observableArray([
+        {option : 'load',   warn: '4 < load < 5',   crti: '5 < load < 6'},
+        {option : 'cpu',    warn: '65 < cpu < 75',  crti: '75 < cpu < 85'},
+        {option : 'mem',    warn: '70 < mem < 80',  crti: '80 < mem < 90'},
+        {option : 'disk',   warn: '75 < disk < 85', crti: '80 < disk < 90'},
+        {option : 'i/o',    warn: '1.5 < i/o < 3.5',    crti: '3.5 < i/o < 6.5'},
+    ]);
+//  self.showList = self.hostInfoList['detail']
+
+    self.displayLeft = ko.observable('leftBarHost');
+    self.displayMode = ko.observable('mntrList');
+    
+    self.chgLeftBar = function(v) {
+        self.displayLeft(v)
+    };
+    self.getOption = function(option) {
+        self.mntrPath('监控配置')
+        self.displayMode('optionList')
+    }
+    self.getInfo = function(v) {
+        self.mntrPath('机器列表')
+        self.displayMode('mntrList')
+        var list = self.hostList[v]
+        if (list == undefined) { list = "nil" }
+        console.log(list)
+        $.ajax({
+            url: '/hostInfo', method: 'post', 
+            contentType: 'application/json', data: JSON.stringify({hosts: list}), //traditional: true, 
+            success: function(data) {
+                console.log(data)
+                self.showList(data)
+            },
+            error: function(data) {
+                console.log(data)
+            },
+        })
+    };
+    self.getHostInfo = function(v) {
+        self.mntrPath('机器列表')
+        self.displayMode('mntrList')
+        $.ajax({
+            url: '/MntrList', method: 'post',
+            contentType: 'application/json', data: JSON.stringify({group: v.toString()}),
+            success: function(data) {
+                console.log(typeof data, data)
+                self.showList(data)
+            },
+            error: function(data) {
+                console.log(data)
+            },
+        })
+    };
+    self.showChart = function() {
+        self.mntrPath('图表')
+        self.displayMode('chartList')
+        renderChart()
+    };
+}
+
+ko.applyBindings(new ViewModel);
+
+function replaceArr(from, to) {
+    from.splice(0, from().length)
+    from.push.apply(from, to)   
+}
+
+function renderChart() {
+    var ctx = $("#myChart").get(0).getContext("2d");
+    var myNewChart = new Chart(ctx);
+    myNewChart.Line({
+        labels : [1, 2, 3, 4, 5],
+        datasets : [
+            {
+                fillColor : "rgba(220,220,220,0.5)",
+                strokeColor : "rgba(220,220,220,1)",
+                pointColor : "rgba(220,220,220,1)",
+                pointStrokeColor : "#fff",
+                data : [65,59,90,81,56]
+            },
+            {
+                fillColor : "rgba(151,187,205,0.5)",
+                strokeColor : "rgba(151,187,205,1)",
+                pointColor : "rgba(151,187,205,1)",
+                pointStrokeColor : "#fff",
+                data : [28,48,40,19,96]
+            }
+        ]
+    })
+}
+
+//      $.ajax({
+//          url: '/aaa', method: 'post', contentType: 'application/json', data: JSON.stringify({"hosts": ["fdfd", 'ww']}), //traditional: true, 
+//          success: function(data) {
+//              console.log(data)
+//          },
+//          error: function(data) {
+//              console.log(data)
+//          },
+//      })
+//      console.log(typeof data, '--', data)
+//      var fixedRes = data.replace(/\\'/g, "'")
+//  self.chooseList = function(v) {
+//      self.showList.push({host:'d', info:'not', option:'s'})
+//      t.push({host:'d', info:'not', option:'s'})
+//      var t = self.showList
+//      var set = self.hostInfoList[v]
+//      t.splice(0, t().length)
+//      t.push.apply(t, set)
+//      console.log(self.showList())
+//      console.log(t)
+//  };
+</script>
+
+</html>

@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>PE工作台 - slate</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link href="/bootstrap.min.css" id="theme-style" rel="stylesheet" media="screen"/>
+	<script src="/jquery.min.js"></script>
+	<script src="/bootstrap.min.js"></script>
+</head>
+
+<body>
+
+<header>
+<!-- the very top line nav bar -->
+<nav class="navbar navbar-default" role="navigation">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="#">PE工作台</a>
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse">
+      <!-- left side, about work user -->
+      <ul class="nav navbar-nav">
+        <li class="active"><a href="#">稳定性</a></li>
+        <li><a href="#">白名单管理</a></li>
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">工具集<b class="caret"></b></a>
+          <ul class="dropdown-menu">
+            <li><a href="#">Action</a></li>
+            <li><a href="#">Another action</a></li>
+            <li><a href="#">Something else here</a></li>
+            <li class="divider"></li>
+            <li><a href="#">Separated link</a></li>
+            <li class="divider"></li>
+            <li><a href="#">One more separated link</a></li>
+          </ul>
+        </li>
+      </ul>
+
+      <!-- do host search -->
+      <form class="navbar-form navbar-left" role="search">
+      	<div class="dropdown" style="float:left; margin-right:5px">
+      	  <button type="submit" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+      		分组
+      	    <span class="caret"></span>
+      	  </button>
+      	  <ul class="dropdown-menu">
+            <li><a href="#">应用</a></li>
+            <li class="divider"></li>
+            <li><a href="#">机器</a></li>
+          </ul>
+      	</div>
+      	      	
+        <div class="form-group">
+          <input type="text" class="form-control" placeholder="Search">
+        </div>
+        <button type="submit" class="btn btn-default">Submit</button>
+      </form>
+
+      <!-- right side, about user info -->
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="#">Link</a></li>
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">用户是 <b class="caret"></b></a>
+          <ul class="dropdown-menu">
+            <li><a href="#"></a></li>
+            <li class="divider"></li>
+            <li><a href="#">Separated link</a></li>
+          </ul>
+        </li>
+      </ul>
+
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
+</header>
+
+<div class="container">
+  <!-- main function navbar -->
+  <ul class="nav nav-pills nav-justified">
+  	<li><a href="#">应用白名单</a></li>
+ 	  <li><a href="#">外包公司ip</a></li>
+  	<li><a href="#">外包公司</a></li>
+  </ul>
+
+  <!-- content operation panel -->
+  <div class="control-btn">
+  	<hr>
+    <button class="btn btn-primary toggleAll-btn" id="chooseAll">全选</button>
+    <button class="btn btn-primary toggleAll-btn" id="addBtn" data-toggle="modal">增加</button>
+    <button class="btn btn-primary toggleAll-btn" id="delBtn" data-toggle="modal">删除</button>
+    <button class="btn btn-primary toggleAll-btn" id="fresh">刷新</button>
+    <hr>
+  </div>
+
+  <!-- data table block ################## No.1 -->
+  <div class="table-responsive">
+	<table id="waibaodata" class="table table-striped table-hover">
+	  <tbody>
+	  	<tr>
+	  	  <th></th>
+	  	  <th>公司名称</th>
+	  	  <th>联系人员</th>
+	  	  <th>联系电话</th>
+	  	  <th>添加时间</th>
+	  	  <th>操作人</th>
+	  	  <th>操作</th>
+	  	</tr>
+	  	
+	  	<!-- real data from server -->
+	  	<tr>
+	  	  <td>
+	  	  	<input type="checkbox" class="tr-select">
+	  	  </td>
+	  	  <td>shit</td>
+	  	  <td>fuck</td>
+	  	  <td>1234</td>
+	  	  <td>周一</td>
+	  	  <td>ok</td>
+	  	  <td>
+	  	  	<div class="btn-group btn-group-xs">
+	  	  	  <button type="button" class="btn btn-primary">详情</button>
+	  	  	  <button type="button" class="btn btn-primary">修改</button>
+	  	  	</div>
+	  	  </td>
+	  	</tr>
+
+	  </tbody>
+  </table>
+  </div>
+
+
+  <!-- ignore .............. -->
+  <!-- data table block ################## No.2 -->
+  <div class="table-responsive" style="display:none">
+  <table id="waibaoipdata" class="table table-bordered">
+    <tr>
+      <th style="width: 10%">#</th>
+      <th>公司名称</th>
+      <th>IP信息</th>
+    </tr>
+    <tr>
+      <td></td>
+      <td style="width: 60%">
+        <details>
+          <summary>点击查看IP信息</summary>
+          <table class="table table-bordered table-hover">
+             <tr>
+               <td></td>
+               <td></td>
+               <td style="width: 20%">
+                 <div class="btn-group btn-group-xs">
+                   <button type="button" class="btn btn-primary detail">详情</button>
+                   <button type="button" class="btn btn-primary modify">修改</button>
+                   <button type="button" class="btn btn-primary del">删除</button>
+                 </div>
+               </td>
+             </tr>
+          </table>
+        </details>
+      </td>
+    </tr>
+  </table>
+  </div>
+
+  <div class="table-responsive" style="display:none">
+  <table id="appinfodata" class="table table-bordered">
+        <tr>
+            <th>#</th>
+            <th>应用分组</th>
+            <th>IP详情</th>
+            <th>操作</th>
+        </tr>
+            <tr>
+                <td></td>
+                <td></td>
+                <td style="width:60%;">
+                    <details>
+                        <summary>点击查看IP信息</summary>
+                        <table class="table table-bordered table-hover">
+                                <tr>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td style="width: 10%">
+                                        <div class="btn-group btn-group-xs">
+                                            <button type="button" class="btn btn-primary">详情</button>
+                                        </div>
+                                    </td>
+                                </tr>
+                        </table>
+                    </details>
+                </td>
+                <td>
+                    <div class="btn-group btn-group-xs">
+                        <button type="button" class="btn btn-primary">处理</button>
+                    </div>
+                </td>
+            </tr>
+    </table>
+	</div>
+
+
+
+
+
+  <!-- Do not display -->
+  <!-- ############# async dialog part ################ -->
+  <!-- async dialog pop out when press "add" button, disappear normally -->
+  <div class="modal fade" id="delModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+          <h4 class="modal-title" id="myModalLabel">删除外包公司</h4>
+        </div>
+        <div class="modal-body">
+          <div>确认删除吗？</div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+          <button type="button" class="btn btn-primary" data-dismiss="modal">确定</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- async dialog pop out when press "add" button, disappear normally -->
+  <div class="modal fade" id="detailModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+          <h4 class="modal-title" id="myModalLabel">增加外包公司</h4>
+        </div>
+        <div class="modal-body">
+          <form id="opsDataForm">
+            <label for="coName">公司名称( * )：</label>
+            <input type="text" id="coName" class="form-control" size="25">
+            <br>
+            <label for="contactPeople">联系人员：</label>
+            <input type="text" id="contactPeople" class="form-control" size="25">
+            <br>
+            <label for="tel">联系电话：</label>
+            <input type="tel" id="tel" class="form-control" size="25">
+            <br>
+            <label for="appGroup">后台权限域名：</label>
+            <textarea rows="3" id="appDomain" class="form-control" placeholder="多个应用分组以英文的;分割，>切记!"></textarea>
+            <br>
+            <label for="remark">备注信息：</label>
+            <input type="text" id="remark" class="form-control" size="25">
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+          <button type="button" class="btn btn-primary" data-dismiss="modal" id="addOrMotify">js设置</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- ############# async dialog part ################ -->
+
+  </div>
+
+<script type="text/javascript">
+var lines = 
+[{
+	"id"		:1234,
+	"company"	:"放到",
+	"renyuan"	:"从",
+	"dianhua"	:23232,
+	"time"		:"2014-11-11",
+	"operator"	:"dashabi"
+},
+{
+	"id"		:88,
+	"company"	:"个人",
+	"renyuan"	:"外网",
+	"dianhua"	:23232,
+	"time"		:"2014-11-22",
+	"operator"	:"dashabi"
+},
+{
+	"id"		:77,
+	"company"	:"反对反对",
+	"renyuan"	:"出现",
+	"dianhua"	:244,
+	"time"		:"2014-22-22",
+	"operator"	:"ssss",
+}];
+
+var renderData = function(line) {
+    dataline ='<tr>'
+    dataline+='  <td>'
+    dataline+='    <input type="checkbox" class="tr-select" dataid="'+line.id+'">'
+    dataline+='  </td>'
+    dataline+='  <td>'+line.company+'</td>'
+    dataline+='  <td>'+line.renyuan+'</td>'
+    dataline+='  <td>'+line.dianhua+'</td>'
+    dataline+='  <td>'+line.time+'</td>'
+    dataline+='  <td>'+line.operator+'</td>'
+    dataline+='  <td>'
+    dataline+='    <div class="btn-group btn-group-xs">'
+    dataline+='      <button type="button" class="btn btn-primary my-detail" dataid="'+line.id+'">详情</button>'
+    dataline+='      <button type="button" class="btn btn-primary my-modify" dataid="'+line.id+'">修改</button>'
+    dataline+='    </div>'
+    dataline+='  </td>'
+    dataline+='</tr>'
+    console.log(dataline)
+    
+    return dataline
+}
+
+var findLineById = function(id, lines){
+    var getline = null
+    $.each(lines, function(n, line) {
+        if (line.id == id) {
+            getline = line; return
+        }
+    })
+    return getline
+}
+
+var setInput = function(line) {   
+    $('#coName'       ).val(line.company)
+    $('#contactPeople').val(line.renyuan)
+    $('#tel'          ).val(line.dianhua)
+    $('#appDomain'    ).val(null)
+    $('#remark'       ).val(null)
+}
+
+var resetInput = function() {
+    $('#coName'       ).val(null)
+    $('#contactPeople').val(null)
+    $('#tel'          ).val(null)
+    $('#appDomain'    ).val(null)
+    $('#remark'       ).val(null)
+}
+ 
+console.log(lines[0].id)
+
+$.ajax({
+    url:'/ajax/getAll',
+    method:'get',
+    success:function(data) {
+        console.log("-------------------" + data)
+    }
+});
+
+$.each(lines, function(n, line) {
+    $('#waibaodata tbody').append(renderData(line))
+    //console.log(findLineById(line.id, lines))
+})
+$('.my-modify').on('click', function(){
+    line = findLineById($(this).attr("dataid"), lines)
+    setInput(line)
+    $('#addOrMotify').html('修改')
+    $('#detailModal').modal('show')
+})
+$('#addBtn').on('click', function(){
+    resetInput()
+    $('#addOrMotify').html("添加")
+    $('#detailModal').modal('show')
+})
+$('#delBtn').on('click', function(){
+    var dataids = []
+    var datas = [];
+    $('.tr-select').each(function(){
+        if (this.checked == true){
+            datas.push(findLineById($(this).attr('dataid'), lines))
+            dataids.push($(this).attr('dataid'))
+        }
+    })
+    console.log(dataids)
+    console.log(datas)
+    $('#delModal').modal('show')
+})
+$('#chooseAll').on('click', function(){
+    allchecked = true;
+    $('.tr-select').each(function(){ 
+        if (this.checked == false){
+            allchecked = false; return
+        }
+    })
+    allchecked == true ? $('.tr-select').each(function(){
+        this.checked = false
+    }) : $('.tr-select').each(function(){
+        this.checked = true
+    })
+})
+
+</script>
+
+</body>
+
+</html>
